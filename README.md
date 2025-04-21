@@ -4,6 +4,8 @@ GUIDE COMPLET DE CONFIGURATION DE SMARTBOT
 
 Ce guide vous explique pas à pas comment configurer SmartBot pour répondre automatiquement aux messages WhatsApp et emails.
 
+NB : Le frontend(react est dans la branch master, donc changer de branche pour pouvoir cloner le frontend)
+
 -----------------------------------------------------
 ÉTAPE 1 : INSTALLATION ET DÉMARRAGE
 -----------------------------------------------------
