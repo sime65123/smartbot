@@ -1,0 +1,54 @@
+/* Styles pour la page de configuration des règles */
+
+.template-card {
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.template-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-textarea {
+  min-height: 120px;
+  font-family: monospace;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.template-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.template-list-item {
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.template-list-item:hover {
+  border-left-color: var(--bs-primary);
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+.template-list-item.default {
+  border-left-color: var(--bs-success);
+}
+
+.template-content {
+  white-space: pre-wrap;
+  max-height: 100px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.intent-badge {
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
