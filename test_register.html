@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test d'inscription</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Test d'inscription</h1>
+    <form id="registerForm">
+        <div>
+            <label for="username">Nom d'utilisateur:</label>
+            <input type="text" id="username" value="testuser1">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="test1@example.com">
+        </div>
+        <div>
+            <label for="firstName">Prénom:</label>
+            <input type="text" id="firstName" value="Test">
+        </div>
+        <div>
+            <label for="lastName">Nom:</label>
+            <input type="text" id="lastName" value="User">
+        </div>
+        <div>
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" value="TestPassword123!">
+        </div>
+        <div>
+            <label for="password2">Confirmer le mot de passe:</label>
+            <input type="password" id="password2" value="TestPassword123!">
+        </div>
+        <button type="submit">S'inscrire</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Envoi de la requête...';
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const password = document.getElementById('password').value;
+            const password2 = document.getElementById('password2').value;
+            
+            try {
+                // Test avec l'URL directe
+                const response = await axios.post('http://127.0.0.1:8000/api/accounts/register/', {
+                    username,
+                    email,
+                    first_name: firstName,
+                    last_name: lastName,
+                    password,
+                    password2
+                });
+                
+                resultDiv.innerHTML = `<pre>Succès: ${JSON.stringify(response.data, null, 2)}</pre>`;
+            } catch (error) {
+                resultDiv.innerHTML = `<pre>Erreur: ${error.message}\n\nDétails: ${JSON.stringify(error.response?.data || {}, null, 2)}</pre>`;
+                console.error('Erreur complète:', error);
+            }
+        });
+    </script>
+</body>
+</html>

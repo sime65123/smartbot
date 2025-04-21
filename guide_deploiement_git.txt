@@ -1,0 +1,236 @@
+=====================================================
+GUIDE DE DÉPLOIEMENT DU PROJET SMARTBOT SUR GIT
+=====================================================
+
+Ce guide explique comment déployer le projet SmartBot sur Git, étape par étape.
+
+-----------------------------------------------------
+ÉTAPE 1 : PRÉPARATION DU PROJET
+-----------------------------------------------------
+
+1.1. Création des fichiers .gitignore
+   - Créer un fichier .gitignore à la racine du projet avec le contenu suivant :
+   ```
+   # Python
+   __pycache__/
+   *.py[cod]
+   *$py.class
+   *.so
+   .Python
+   env/
+   venv/
+   ENV/
+   build/
+   develop-eggs/
+   dist/
+   downloads/
+   eggs/
+   .eggs/
+   lib/
+   lib64/
+   parts/
+   sdist/
+   var/
+   *.egg-info/
+   .installed.cfg
+   *.egg
+
+   # Django
+   *.log
+   local_settings.py
+   db.sqlite3
+   db.sqlite3-journal
+   media/
+
+   # React
+   /frontend/node_modules/
+   /frontend/.pnp
+   /frontend/.pnp.js
+   /frontend/coverage/
+   /frontend/build/
+
+   # Environnement
+   .env
+   .env.local
+   .env.development.local
+   .env.test.local
+   .env.production.local
+
+   # Éditeurs
+   .idea/
+   .vscode/
+   *.swp
+   *.swo
+   *~
+
+   # Système d'exploitation
+   .DS_Store
+   Thumbs.db
+   ```
+
+1.2. Préparation des fichiers sensibles
+   - Créer un fichier .env.example à la racine du projet (modèle pour le fichier .env) :
+   ```
+   # Configuration de l'API OpenAI
+   OPENAI_API_KEY=your_openai_api_key_here
+
+   # Configuration Django (optionnel)
+   # DEBUG=True
+   # SECRET_KEY=your_secret_key_here
+   # DATABASE_URL=sqlite:///db.sqlite3
+   ```
+
+   - Créer un fichier frontend/.env.example (modèle pour le frontend/.env) :
+   ```
+   REACT_APP_API_URL=http://localhost:8000/api
+   ```
+
+-----------------------------------------------------
+ÉTAPE 2 : INITIALISATION DU DÉPÔT GIT
+-----------------------------------------------------
+
+2.1. Initialiser le dépôt Git local
+   ```bash
+   cd /chemin/vers/ProjetAppo
+   git init
+   ```
+
+2.2. Ajouter les fichiers au staging
+   ```bash
+   git add .
+   ```
+
+2.3. Vérifier les fichiers ajoutés (s'assurer que les fichiers sensibles ne sont pas inclus)
+   ```bash
+   git status
+   ```
+
+2.4. Faire le premier commit
+   ```bash
+   git commit -m "Initial commit"
+   ```
+
+-----------------------------------------------------
+ÉTAPE 3 : CONNEXION À UN DÉPÔT DISTANT (GITHUB, GITLAB, ETC.)
+-----------------------------------------------------
+
+3.1. Création d'un nouveau dépôt sur GitHub
+   - Se connecter à GitHub (https://github.com)
+   - Cliquer sur "New repository"
+   - Nommer le dépôt (ex: "smartbot")
+   - Choisir si le dépôt est public ou privé
+   - Ne PAS initialiser le dépôt avec un README, .gitignore ou licence
+   - Cliquer sur "Create repository"
+
+3.2. Connecter le dépôt local au dépôt distant
+   ```bash
+   git remote add origin https://github.com/votre-nom-utilisateur/smartbot.git
+   ```
+
+3.3. Pousser le code vers le dépôt distant
+   ```bash
+   git push -u origin main
+   # ou si votre branche principale s'appelle "master"
+   git push -u origin master
+   ```
+
+-----------------------------------------------------
+ÉTAPE 4 : GESTION DES BRANCHES ET COLLABORATION
+-----------------------------------------------------
+
+4.1. Création d'une nouvelle branche pour le développement
+   ```bash
+   git checkout -b develop
+   ```
+
+4.2. Travailler sur la nouvelle branche
+   - Faire des modifications au code
+   - Ajouter les modifications au staging
+   ```bash
+   git add .
+   ```
+   - Faire un commit des modifications
+   ```bash
+   git commit -m "Description des modifications"
+   ```
+
+4.3. Pousser la branche de développement vers le dépôt distant
+   ```bash
+   git push -u origin develop
+   ```
+
+4.4. Créer une Pull Request (sur GitHub)
+   - Aller sur le dépôt GitHub
+   - Cliquer sur "Compare & pull request"
+   - Ajouter une description des modifications
+   - Cliquer sur "Create pull request"
+
+4.5. Fusionner les modifications dans la branche principale
+   - Revenir à la branche principale
+   ```bash
+   git checkout main  # ou master
+   ```
+   - Fusionner la branche de développement
+   ```bash
+   git merge develop
+   ```
+   - Pousser les modifications vers le dépôt distant
+   ```bash
+   git push
+   ```
+
+-----------------------------------------------------
+ÉTAPE 5 : MISE À JOUR DU DÉPÔT LOCAL
+-----------------------------------------------------
+
+5.1. Récupérer les dernières modifications du dépôt distant
+   ```bash
+   git pull
+   ```
+
+5.2. Mettre à jour une branche spécifique
+   ```bash
+   git checkout nom-de-la-branche
+   git pull origin nom-de-la-branche
+   ```
+
+-----------------------------------------------------
+CONSEILS ET BONNES PRATIQUES
+-----------------------------------------------------
+
+1. Commits
+   - Faire des commits fréquents et ciblés
+   - Utiliser des messages de commit descriptifs
+   - Format recommandé : "type: sujet" (ex: "feat: ajout de la fonctionnalité X")
+
+2. Branches
+   - Utiliser des branches pour les fonctionnalités/corrections
+   - Nommer les branches de manière descriptive (ex: "feature/auth-system", "fix/login-bug")
+   - Supprimer les branches après fusion
+
+3. Sécurité
+   - Ne JAMAIS commiter de fichiers .env contenant des secrets
+   - Vérifier régulièrement avec git status avant de commiter
+   - Utiliser des variables d'environnement pour les secrets en production
+
+4. Collaboration
+   - Toujours pull avant de commencer à travailler
+   - Résoudre les conflits de fusion localement avant de push
+   - Utiliser les issues et pull requests pour discuter des changements
+
+-----------------------------------------------------
+COMMANDES GIT UTILES
+-----------------------------------------------------
+
+- Voir l'historique des commits : `git log`
+- Annuler le dernier commit (sans perdre les modifications) : `git reset --soft HEAD~1`
+- Voir les différences entre les fichiers : `git diff`
+- Créer un tag pour une version : `git tag -a v1.0.0 -m "Version 1.0.0"`
+- Pousser les tags vers le dépôt distant : `git push --tags`
+- Voir toutes les branches : `git branch -a`
+- Supprimer une branche locale : `git branch -d nom-de-la-branche`
+- Supprimer une branche distante : `git push origin --delete nom-de-la-branche`
+
+=====================================================
+FIN DU GUIDE
+=====================================================
